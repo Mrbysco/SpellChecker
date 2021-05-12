@@ -15,13 +15,11 @@ out
 
 # gradle
 build
-gradle
 .gradle
-*.gitattributes
-*.properties
 
 # other
 eclipse
 run
-src
-*.psd
+
+# Files from Forge MDK
+forge*changelog.txt
