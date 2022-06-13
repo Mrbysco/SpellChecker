@@ -1,0 +1,45 @@
+{
+    "schemaVersion": 1,
+    "id": "spellchecker",
+    "version": "${version}",
+  
+    "name": "Spell Checker",
+    "description": "Need your spelling checked?",
+    "authors": [
+      "Mrbysco"
+    ],
+    "contact": {
+      "homepage": "https://www.curseforge.com/minecraft/mc-mods/spell-checker",
+      "sources": "https://github.com/Mrbysco/spellchecker",
+      "issues": "https://github.com/Mrbysco/spellchecker/issues"
+    },
+  
+    "license": "ARR",
+    "icon": "icon.png",
+  
+    "environment": "*",
+    "entrypoints": {
+      "client": [
+        "com.mrbysco.spellchecker.SpellCheckerFabric"
+      ],
+      "modmenu": [
+        "com.mrbysco.spellchecker.config.SpellCheckerModMenuIntegration"
+      ]
+    },
+    "mixins": [
+      "spellchecker.mixins.json",
+	  "spellchecker.fabric.mixins.json"
+    ],
+  
+    "depends": {
+      "fabricloader": ">=0.14",
+      "fabric": "*",
+      "minecraft": "1.18.x",
+      "java": ">=17",
+      "cloth-config": ">=6.0.42"
+    },
+    "suggests": {
+      "another-mod": "*"
+    }
+  }
+  

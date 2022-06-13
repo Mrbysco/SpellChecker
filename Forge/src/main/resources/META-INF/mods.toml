@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+issueTrackerURL="https://github.com/Mrbysco/SpellChecker/issues"
+license="All Rights Reserved"
+
+[[mods]]
+modId="spellchecker"
+version="${file.jarVersion}"
+displayName="Spell Checker"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/spell-checker"
+authors="Mrbysco"
+description='''
+Need your spelling checked?
+'''
+logoFile="logo.png"
+[[dependencies.spellchecker]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.18.2,1.19)"
+ordering="NONE"
+side="BOTH"
