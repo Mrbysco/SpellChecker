@@ -6,14 +6,14 @@
   "mixins": [
   ],
   "client": [
-    "ChatScreenAccessor",
-    "ChatScreenMixin",
-    "EditBoxAccessor"
+	"ChatScreenAccessor",
+	"ChatScreenMixin",
+	"EditBoxAccessor"
   ],
   "server": [
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   },
   "refmap": "${refmap_target}refmap.json"
 }

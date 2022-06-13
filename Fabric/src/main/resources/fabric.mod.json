@@ -27,8 +27,7 @@
       ]
     },
     "mixins": [
-      "spellchecker.mixins.json",
-	  "spellchecker.fabric.mixins.json"
+      "spellchecker.mixins.json"
     ],
   
     "depends": {
