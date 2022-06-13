@@ -202,6 +202,7 @@ public class SuggestionUtil {
 	 * @param misspelledWord
 	 * @return ArrayList of suggestions
 	 */
+	@SuppressWarnings("unchecked")
 	public static ArrayList<String> getSuggestions(String misspelledWord) {
 		int threshold = Services.PLATFORM.getCheckingThreshold();
 		int maxSuggestions = Services.PLATFORM.getMaxSuggestions();

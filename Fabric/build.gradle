@@ -27,6 +27,7 @@ configurations {
 shadowJar {
     configurations = [project.configurations.shade]
     relocate 'com.swabunga.jazzy', "${project.group}.shadow.com.swabunga.jazzy"
+    exclude '*.txt'
 }
 
 assemble.dependsOn shadowJar
