@@ -41,7 +41,7 @@ public class SpellCheckerConfig {
 			max_suggestions = builder
 					.translation("configgui.spellchecker.general.suggestionsize.info")
 					.comment("The maximum number of suggestions it will show you. [default: 4]")
-					.defineInRange("max_suggestions", 0, 1, 20);
+					.defineInRange("max_suggestions", 4, 1, 20);
 
 			builder.pop();
 		}
