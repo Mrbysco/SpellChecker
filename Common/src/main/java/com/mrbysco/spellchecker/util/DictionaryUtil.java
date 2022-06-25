@@ -66,14 +66,14 @@ public class DictionaryUtil {
 	public static InputStream getDictionaryWords(String locale_name) throws IOException {
 		if (!locale_name.isEmpty()) {
 			try {
-				return Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Constants.MOD_ID, "dictionaries/" + locale_name + "/dictionary.txt")).getInputStream();
+				return Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Constants.MOD_ID, "dictionaries/" + locale_name + "/dictionary.txt")).get().open();
 			} catch (IOException e) {
 				Constants.LOGGER.error("Invalid locale {}", locale_name);
 				e.printStackTrace();
 				return null;
 			}
 		} else {
-			return Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Constants.MOD_ID, "dictionaries/en_us/dictionary.txt")).getInputStream();
+			return Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Constants.MOD_ID, "dictionaries/en_us/dictionary.txt")).get().open();
 		}
 	}
 

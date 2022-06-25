@@ -8,7 +8,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +112,6 @@ public class SuggestionRendering {
 	}
 
 	public static void drawInfoTooltip(ChatScreen screen, PoseStack poseStack, List<String> textLines, int x, int y) {
-		screen.renderTooltip(poseStack, textLines.stream().map(text -> new TextComponent(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
+		screen.renderTooltip(poseStack, textLines.stream().map(text -> Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
 	}
 }
