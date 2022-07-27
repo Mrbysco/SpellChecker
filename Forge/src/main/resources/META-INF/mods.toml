@@ -13,6 +13,7 @@ description='''
 Need your spelling checked?
 '''
 logoFile="logo.png"
+
 [[dependencies.spellchecker]]
 modId="minecraft"
 mandatory=true
