@@ -49,7 +49,6 @@ reobf {
 
 mixin {
     add project(":Common").sourceSets.main, "${mod_id}.refmap.json"
-
     config "${mod_id}.mixins.json"
 }
 
