@@ -10,42 +10,15 @@ buildscript {
     }
 }
 
-plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
-}
-
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
 
-configurations {
-    shade
-    implementation.extendsFrom shade
-}
-
-minecraft.runs.all {
-    lazyToken('minecraft_classpath') {
-        configurations.shade.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
-    }
-}
+jarJar.enable()
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
-
-shadowJar {
-    archiveClassifier = ''
-    configurations = [project.configurations.shade]
-    relocate 'com.swabunga.jazzy', "${project.group}.shadow.com.swabunga.jazzy"
-    exclude '*.txt'
-    finalizedBy 'reobfShadowJar'
-}
-
-assemble.dependsOn shadowJar
-
-reobf {
-    shadowJar {}
-}
 
 mixin {
     add project(":Common").sourceSets.main, "${mod_id}.refmap.json"
@@ -112,7 +85,8 @@ dependencies {
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    shade('com.swabunga:jazzy:1.0.0')
+    minecraftLibrary('com.swabunga:jazzy:1.0.0')
+    jarJar(group: 'com.swabunga', name: 'jazzy', version: '[1.0.0,1.0.1)')
 }
 
 tasks.withType(JavaCompile) {
@@ -129,10 +103,16 @@ processResources {
 
 jar.finalizedBy('reobfJar')
 
+reobf.create('jarJar')
+
 def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
+def jar = artifacts.add('default', reobfFile) {
     type 'jar'
     builtBy 'reobfJar'
+}
+
+tasks.jarJar.configure {
+    archiveClassifier = ""
 }
 
 publishing {

@@ -1,8 +1,7 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.1-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
@@ -19,19 +18,6 @@ repositories {
     }
 }
 
-configurations {
-    shade
-    implementation.extendsFrom shade
-}
-
-shadowJar {
-    configurations = [project.configurations.shade]
-    relocate 'com.swabunga.jazzy', "${project.group}.shadow.com.swabunga.jazzy"
-    exclude '*.txt'
-}
-
-assemble.dependsOn shadowJar
-
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.officialMojangMappings()
@@ -44,7 +30,7 @@ dependencies {
     }
     modImplementation "com.terraformersmc:modmenu:${mod_menu_version}"
 
-    shade('com.swabunga:jazzy:1.0.0')
+    include api('com.swabunga:jazzy:1.0.0')
 }
 
 loom {
@@ -82,17 +68,13 @@ tasks.withType(JavaCompile) {
     source(project(":Common").sourceSets.main.allSource)
 }
 
-remapJar {
-    input.set shadowJar.archiveFile
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
             artifactId project.archivesBaseName
             version project.version
-            from components.java
+            artifact jar
         }
     }
 
