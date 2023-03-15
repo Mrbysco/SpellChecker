@@ -122,6 +122,7 @@ tasks.jarJar.configure {
     }
 }
 tasks.build.dependsOn tasks.jarJar
+tasks.jarJar.finalizedBy('reobfJarJar')
 
 publishing {
     publications {
