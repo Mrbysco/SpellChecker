@@ -101,6 +101,10 @@ processResources {
     }
 }
 
+jar {
+    classifier = "slim"
+}
+
 jar.finalizedBy('reobfJar')
 
 reobf.create('jarJar')
@@ -113,7 +117,11 @@ def jar = artifacts.add('default', reobfFile) {
 
 tasks.jarJar.configure {
     archiveClassifier = ""
+    from(rootProject.file("LICENSE")) {
+        rename { "${it}_${mod_name}" }
+    }
 }
+tasks.build.dependsOn tasks.jarJar
 
 publishing {
     publications {
@@ -121,7 +129,8 @@ publishing {
             groupId project.group
             artifactId project.archivesBaseName
             version project.version
-            artifact jar
+            from components.java
+            jarJar.component(it, tasks.jarJar)
         }
     }
     repositories {
