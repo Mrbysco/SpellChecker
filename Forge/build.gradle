@@ -159,7 +159,7 @@ if (System.getenv().CURSEFORGE_KEY) {
             addGameVersion "Forge"
             addGameVersion "${minecraft_version}"
             addGameVersion "Java 17"
-            mainArtifact(jar)
+            mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
             changelog = file("$project.rootDir/changelog.md")
             changelogType = 'markdown'
         }
@@ -174,7 +174,7 @@ if (System.getenv().MODRINTH_KEY) {
         versionType = "release"
         versionName = "${mod_name} ${minecraft_version}"
         versionNumber = project.version
-        uploadFile = jar
+        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
         changelog = fileContents
         gameVersions = ["${minecraft_version}"]
         loaders = ["forge"]
