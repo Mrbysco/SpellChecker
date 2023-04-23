@@ -86,12 +86,6 @@ remapJar {
     input.set shadowJar.archiveFile
 }
 
-jar {
-    from("LICENSE") {
-        rename { "${it}_${mod_name}" }
-    }
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
