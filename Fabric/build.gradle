@@ -102,7 +102,7 @@ if (System.getenv().CURSEFORGE_KEY) {
             addGameVersion "Fabric"
             addGameVersion "${minecraft_version}"
             addGameVersion "Java 17"
-            mainArtifact(remapJar)
+            mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
             changelog = file("$project.rootDir/changelog.md")
             changelogType = 'markdown'
 
@@ -126,7 +126,7 @@ if (System.getenv().MODRINTH_KEY) {
         versionType = "beta"
         versionName = "${mod_name} ${minecraft_version}"
         versionNumber = project.version
-        uploadFile = remapJar
+        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
         changelog = fileContents
         gameVersions = ["${minecraft_version}"]
         loaders = ["fabric"]
