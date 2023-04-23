@@ -1,12 +1,12 @@
 package com.mrbysco.spellchecker.config;
 
-import blue.endless.jankson.Comment;
 import com.mrbysco.spellchecker.Constants;
 import com.mrbysco.spellchecker.language.LanguageEnum;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.BoundedDiscrete;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = Constants.MOD_ID)
 public class SpellCheckerConfig implements ConfigData {
