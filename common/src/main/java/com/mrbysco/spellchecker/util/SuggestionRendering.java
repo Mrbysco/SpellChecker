@@ -1,11 +1,10 @@
 package com.mrbysco.spellchecker.util;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.network.chat.Component;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SuggestionRendering {
-	public static void renderSuggestions(PoseStack poseStack, int mouseX, int mouseY, float partialTick, ChatScreen chat) {
+	public static void renderSuggestions(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, ChatScreen chat) {
 		final Font font = Minecraft.getInstance().font;
 		if (!SuggestionUtil.keptSuggestions.isEmpty()) {
 			for (SuggestionInfo info : SuggestionUtil.keptSuggestions) {
@@ -24,7 +23,7 @@ public class SuggestionRendering {
 				String word = info.word();
 				List<String> suggestions = info.suggestions();
 
-				drawInfoTooltip(chat, poseStack, suggestions, posX, posY);
+				drawInfoTooltip(guiGraphics, font, suggestions, posX, posY);
 			}
 		}
 
@@ -67,10 +66,10 @@ public class SuggestionRendering {
 									wrongSquigly = new StringBuilder("~");
 								}
 
-								GuiComponent.drawString(poseStack, font, wrongSquigly.toString(), width + 4, chat.height - 4, 16733525);
+								guiGraphics.drawString(font, wrongSquigly.toString(), width + 4, chat.height - 4, 16733525, false);
 								boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
 								if (hoveredFlag) {
-									drawInfoTooltip(chat, poseStack, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+									drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
 								}
 							} else {
 								String[] Words = currentlyDisplayedText.split(" ");
@@ -96,10 +95,10 @@ public class SuggestionRendering {
 											wrongSquigly = new StringBuilder("~");
 										}
 
-										GuiComponent.drawString(poseStack, font, wrongSquigly.toString(), width + 2, chat.height - 4, 16733525);
+										guiGraphics.drawString(font, wrongSquigly.toString(), width + 2, chat.height - 4, 16733525, false);
 										boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
 										if (hoveredFlag) {
-											drawInfoTooltip(chat, poseStack, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+											drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
 										}
 									}
 								}
@@ -111,7 +110,7 @@ public class SuggestionRendering {
 		}
 	}
 
-	public static void drawInfoTooltip(ChatScreen screen, PoseStack poseStack, List<String> textLines, int x, int y) {
-		screen.renderTooltip(poseStack, textLines.stream().map(text -> Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
+	public static void drawInfoTooltip(GuiGraphics guiGraphics, Font font, List<String> textLines, int x, int y) {
+		guiGraphics.renderTooltip(font, textLines.stream().map(text -> Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
 	}
 }

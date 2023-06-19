@@ -1,10 +1,10 @@
 package com.mrbysco.spellchecker.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mrbysco.spellchecker.platform.Services;
 import com.mrbysco.spellchecker.util.DictionaryUtil;
 import com.mrbysco.spellchecker.util.SuggestionRendering;
 import com.mrbysco.spellchecker.util.SuggestionUtil;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,9 +43,9 @@ public class ChatScreenMixin {
 		SuggestionUtil.onMouseClicked(mouseX, mouseY, button, screen);
 	}
 
-	@Inject(at = @At("TAIL"), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;IIF)V")
-	public void spellchecker_render(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo info) {
+	@Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V")
+	public void spellchecker_render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo info) {
 		ChatScreen screen = (ChatScreen) (Object) this;
-		SuggestionRendering.renderSuggestions(poseStack, mouseX, mouseY, partialTick, screen);
+		SuggestionRendering.renderSuggestions(guiGraphics, mouseX, mouseY, partialTick, screen);
 	}
 }
