@@ -1,6 +1,14 @@
 {
 	"_comment": "config",
-	"configgui.spellchecker.language_check.language.info": "Language locale the mod uses to check your chat messages. [default: EN_US]",
-	"configgui.spellchecker.checking.threshold.info": "The threshold the mod uses to check how close a word needs to be to the wrongly spelled word. [default: 0]",
-	"configgui.spellchecker.general.suggestionsize.info": "The maximum number of suggestions it will show you. [default: 4]"
+	"configgui.spellchecker.language_check.language_to_check": "Language locale the mod uses to check your chat messages. [default: EN_US]",
+	"configgui.spellchecker.checking.checking_threshold": "The threshold the mod uses to check how close a word needs to be to the wrongly spelled word. [default: 0]",
+	"configgui.spellchecker.general.max_suggestions": "The maximum number of suggestions it will show you. [default: 4]",
+	"configgui.spellchecker.general.show_suggestions_live": "Show suggestions live while typing. [default: false]",
+
+	"text.autoconfig.spellchecker.option.client.title": "SpellChecker",
+	"text.autoconfig.spellchecker.option.client": "Client",
+	"text.autoconfig.spellchecker.option.client.language_to_check": "Language to check",
+	"text.autoconfig.spellchecker.option.client.checking_threshold": "Checking threshold",
+	"text.autoconfig.spellchecker.option.client.max_suggestions": "Max suggestions",
+	"text.autoconfig.spellchecker.option.client.show_suggestions_live": "Show suggestions live"
 }
