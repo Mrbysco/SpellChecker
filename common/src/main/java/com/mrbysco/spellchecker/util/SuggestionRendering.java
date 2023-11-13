@@ -2,6 +2,7 @@ package com.mrbysco.spellchecker.util;
 
 import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
+import com.mrbysco.spellchecker.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,7 +31,9 @@ public class SuggestionRendering {
 		if (SuggestionUtil.wronglySpelledWords != null && !SuggestionUtil.wronglySpelledWords.isEmpty() &&
 				SuggestionUtil.wordSuggestions != null && !SuggestionUtil.wordSuggestions.isEmpty() &&
 				SuggestionUtil.wordPosition != null && !SuggestionUtil.wordPosition.isEmpty()) {
+			final boolean showSuggestionsLive = Services.PLATFORM.showSuggestionsLive();
 			for (int i = 0; i < SuggestionUtil.wronglySpelledWords.size(); i++) {
+				boolean isLastWord = i == SuggestionUtil.wronglySpelledWords.size() - 1;
 				String word = SuggestionUtil.wronglySpelledWords.get(i);
 				ArrayList<String> suggestions = SuggestionUtil.wordSuggestions.get(word);
 
@@ -68,7 +71,7 @@ public class SuggestionRendering {
 
 								guiGraphics.drawString(font, wrongSquigly.toString(), width + 4, chat.height - 4, 16733525, false);
 								boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
-								if (hoveredFlag) {
+								if (hoveredFlag || (showSuggestionsLive && isLastWord)) {
 									drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
 								}
 							} else {

@@ -27,4 +27,9 @@ public class ForgePlatformHelper implements IPlatformHelper {
 	public int getMaxSuggestions() {
 		return SpellCheckerConfig.CLIENT.max_suggestions.get();
 	}
+
+	@Override
+	public boolean showSuggestionsLive() {
+		return SpellCheckerConfig.CLIENT.show_suggestions_live.get();
+	}
 }

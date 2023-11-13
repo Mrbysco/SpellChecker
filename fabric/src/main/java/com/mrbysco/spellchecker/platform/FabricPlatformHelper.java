@@ -35,4 +35,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
 			SpellCheckerFabric.config = AutoConfig.getConfigHolder(SpellCheckerConfig.class).getConfig();
 		return SpellCheckerFabric.config.client.max_suggestions;
 	}
+
+	@Override
+	public boolean showSuggestionsLive() {
+		if (SpellCheckerFabric.config == null)
+			SpellCheckerFabric.config = AutoConfig.getConfigHolder(SpellCheckerConfig.class).getConfig();
+		return SpellCheckerFabric.config.client.show_suggestions_live;
+	}
 }

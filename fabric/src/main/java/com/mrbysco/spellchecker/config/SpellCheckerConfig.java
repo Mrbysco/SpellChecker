@@ -25,5 +25,8 @@ public class SpellCheckerConfig implements ConfigData {
 		@Comment("The maximum number of suggestions it will show you. [default: 4]")
 		@BoundedDiscrete(min = 0, max = 20)
 		public int max_suggestions = 4;
+
+		@Comment("Show suggestions live while typing. [default: false]")
+		public boolean show_suggestions_live = false;
 	}
 }

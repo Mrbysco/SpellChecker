@@ -31,4 +31,11 @@ public interface IPlatformHelper {
 	 * @return get configured max suggestions
 	 */
 	int getMaxSuggestions();
+
+	/**
+	 * Show spell suggestions live
+	 *
+	 * @return get configured value signifying whether to show suggestions live
+	 */
+	boolean showSuggestionsLive();
 }
