@@ -31,9 +31,9 @@ public class SuggestionUtil {
 	/**
 	 * Called when a key is pressed in the chat box
 	 *
-	 * @param keyCode
-	 * @param scanCode
-	 * @param modifiers
+	 * @param keyCode   The key code of the key that was pressed
+	 * @param scanCode  The scan code of the key that was pressed
+	 * @param modifiers The modifiers of the key that was pressed
 	 */
 	public static void onKeyPressed(int keyCode, int scanCode, int modifiers, EditBox box) {
 		if (isKeyDown(GLFW.GLFW_KEY_SPACE) || isKeyDown(GLFW.GLFW_KEY_BACKSPACE) || isKeyDown(GLFW.GLFW_KEY_UP) || isKeyDown(GLFW.GLFW_KEY_DOWN) || isKeyDown(GLFW.GLFW_KEY_LEFT) || isKeyDown(GLFW.GLFW_KEY_RIGHT)) {
@@ -111,8 +111,8 @@ public class SuggestionUtil {
 	/**
 	 * Adds a word to the dictionary and then refreshes the suggestions
 	 *
-	 * @param box
-	 * @param word
+	 * @param box  The edit box
+	 * @param word The word to add
 	 */
 	public static void addToDictionary(EditBox box, String word) {
 		if (isKeyDown(GLFW.GLFW_KEY_LEFT_CONTROL)) {
@@ -131,11 +131,11 @@ public class SuggestionUtil {
 	/**
 	 * Keeps the suggested word
 	 *
-	 * @param box
-	 * @param x
-	 * @param y
-	 * @param word
-	 * @param suggestions
+	 * @param box         The edit box
+	 * @param x           The x position of the word
+	 * @param y           The y position of the word
+	 * @param word        The word to keep
+	 * @param suggestions The suggestions for the word
 	 */
 	public static void keepSuggestion(EditBox box, int x, int y, String word, ArrayList<String> suggestions) {
 		if (isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT)) {
@@ -151,7 +151,7 @@ public class SuggestionUtil {
 	/**
 	 * Refreshes the suggestions for the current input
 	 *
-	 * @param editBox
+	 * @param editBox The edit box
 	 */
 	public static void refreshSuggestions(EditBox editBox) {
 		DictionaryUtil.addPersonalToLanguageMap();
@@ -200,7 +200,7 @@ public class SuggestionUtil {
 	/**
 	 * Get suggestions for a word
 	 *
-	 * @param misspelledWord
+	 * @param misspelledWord The word to get suggestions for
 	 * @return ArrayList of suggestions
 	 */
 	@SuppressWarnings("unchecked")
@@ -227,9 +227,9 @@ public class SuggestionUtil {
 	/**
 	 * Strips a word of all non-alphanumeric characters
 	 *
-	 * @param locale
-	 * @param word
-	 * @return
+	 * @param locale The current locale
+	 * @param word   The word to strip
+	 * @return The stripped word
 	 */
 	public static String stripWord(String locale, String word) {
 		String strippedWord = word;
