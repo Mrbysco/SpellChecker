@@ -2,20 +2,20 @@ package com.mrbysco.spellchecker.config;
 
 import com.mrbysco.spellchecker.Constants;
 import com.mrbysco.spellchecker.language.LanguageEnum;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class SpellCheckerConfig {
 
 	public static class Client {
-		public final ForgeConfigSpec.EnumValue<LanguageEnum> language_to_check;
-		public final ForgeConfigSpec.IntValue checking_threshold;
-		public final ForgeConfigSpec.IntValue max_suggestions;
-		public final ForgeConfigSpec.BooleanValue show_suggestions_live;
+		public final ModConfigSpec.EnumValue<LanguageEnum> language_to_check;
+		public final ModConfigSpec.IntValue checking_threshold;
+		public final ModConfigSpec.IntValue max_suggestions;
+		public final ModConfigSpec.BooleanValue show_suggestions_live;
 
-		Client(ForgeConfigSpec.Builder builder) {
+		Client(ModConfigSpec.Builder builder) {
 			builder.comment("LanguageEnum settings")
 					.push("language");
 
@@ -51,11 +51,11 @@ public class SpellCheckerConfig {
 		}
 	}
 
-	public static final ForgeConfigSpec clientSpec;
+	public static final ModConfigSpec clientSpec;
 	public static final Client CLIENT;
 
 	static {
-		final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+		final Pair<Client, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Client::new);
 		clientSpec = specPair.getRight();
 		CLIENT = specPair.getLeft();
 	}
