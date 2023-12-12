@@ -1,1 +1,1 @@
-* Add option to show live suggestions
+* Initial update to 1.20.2
