@@ -2,7 +2,7 @@ package com.mrbysco.spellchecker.platform;
 
 import com.mrbysco.spellchecker.config.SpellCheckerConfig;
 import com.mrbysco.spellchecker.platform.services.IPlatformHelper;
-import net.neoforged.fml.loading.FMLPaths;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
 

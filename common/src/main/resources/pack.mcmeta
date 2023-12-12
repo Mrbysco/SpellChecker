@@ -1,6 +1,6 @@
 {
     "pack": {
-        "description": "Spell Checker resources",
-        "pack_format": 18
+        "description": "${mod_name} resources",
+        "pack_format": 15
     }
 }

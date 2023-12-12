@@ -5,7 +5,7 @@
 	"configgui.spellchecker.general.max_suggestions": "The maximum number of suggestions it will show you. [default: 4]",
 	"configgui.spellchecker.general.show_suggestions_live": "Show suggestions live while typing. [default: false]",
 
-	"text.autoconfig.spellchecker.title": "SpellChecker",
+	"text.autoconfig.spellchecker.option.client.title": "SpellChecker",
 	"text.autoconfig.spellchecker.option.client": "Client",
 	"text.autoconfig.spellchecker.option.client.language_to_check": "Language to check",
 	"text.autoconfig.spellchecker.option.client.checking_threshold": "Checking threshold",
