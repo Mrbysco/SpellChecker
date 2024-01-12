@@ -7,14 +7,12 @@ import net.neoforged.fml.IExtensionPoint.DisplayTest;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 
 @Mod(Constants.MOD_ID)
 public class SpellCheckerForge {
 
-	public SpellCheckerForge() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public SpellCheckerForge(IEventBus eventBus) {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SpellCheckerConfig.clientSpec);
 		eventBus.register(SpellCheckerConfig.class);
 
