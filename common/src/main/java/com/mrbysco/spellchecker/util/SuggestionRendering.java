@@ -21,16 +21,16 @@ public class SuggestionRendering {
 			for (SuggestionInfo info : SuggestionUtil.keptSuggestions) {
 				int posX = info.posX();
 				int posY = info.posY();
-				String word = info.word();
 				List<String> suggestions = info.suggestions();
 
 				drawInfoTooltip(guiGraphics, font, suggestions, posX, posY);
 			}
 		}
 
-		if (SuggestionUtil.wronglySpelledWords != null && !SuggestionUtil.wronglySpelledWords.isEmpty() &&
-				SuggestionUtil.wordSuggestions != null && !SuggestionUtil.wordSuggestions.isEmpty() &&
-				SuggestionUtil.wordPosition != null && !SuggestionUtil.wordPosition.isEmpty()) {
+		if (!SuggestionUtil.wronglySpelledWords.isEmpty() &&
+				!SuggestionUtil.wordSuggestions.isEmpty() &&
+				!SuggestionUtil.wordPosition.isEmpty()
+		) {
 			final boolean showSuggestionsLive = Services.PLATFORM.showSuggestionsLive();
 			for (int i = 0; i < SuggestionUtil.wronglySpelledWords.size(); i++) {
 				boolean isLastWord = i == SuggestionUtil.wronglySpelledWords.size() - 1;
