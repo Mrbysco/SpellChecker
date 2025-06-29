@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class SuggestionRendering {
 									wrongSquigly = new StringBuilder("~");
 								}
 
-								guiGraphics.drawString(font, wrongSquigly.toString(), width + 4, chat.height - 4, 16733525, false);
+								guiGraphics.drawString(font, wrongSquigly.toString(), width + 4, chat.height - 4, ARGB.opaque(16733525), false);
 								boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
 								if (hoveredFlag || (showSuggestionsLive && isLastWord)) {
 									drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
@@ -98,7 +99,7 @@ public class SuggestionRendering {
 											wrongSquigly = new StringBuilder("~");
 										}
 
-										guiGraphics.drawString(font, wrongSquigly.toString(), width + 2, chat.height - 4, 16733525, false);
+										guiGraphics.drawString(font, wrongSquigly.toString(), width + 2, chat.height - 4, ARGB.opaque(16733525), false);
 										boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
 										if (hoveredFlag) {
 											drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
@@ -114,6 +115,7 @@ public class SuggestionRendering {
 	}
 
 	public static void drawInfoTooltip(GuiGraphics guiGraphics, Font font, List<String> textLines, int x, int y) {
-		guiGraphics.renderTooltip(font, textLines.stream().map(text -> Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
+		guiGraphics.setTooltipForNextFrame(font, textLines.stream().map(text ->
+				Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
 	}
 }

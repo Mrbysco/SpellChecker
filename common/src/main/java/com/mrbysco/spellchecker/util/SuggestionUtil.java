@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mrbysco.spellchecker.CommonClass;
 import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
+import com.mrbysco.spellchecker.mixin.GameRendererAccessor;
 import com.mrbysco.spellchecker.platform.Services;
 import com.swabunga.spell.engine.SpellDictionary;
 import com.swabunga.spell.engine.Word;
@@ -49,8 +50,11 @@ public class SuggestionUtil {
 	public static void onMouseClicked(double mouseX, double mouseY, int button, ChatScreen chat) {
 		final Minecraft mc = Minecraft.getInstance();
 		final Font font = mc.font;
-		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null && !wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
-			final GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
+		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null &&
+				!wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
+			final GuiGraphics guiGraphics = new GuiGraphics(mc,
+					((GameRendererAccessor)(mc.gameRenderer)).spellchecker_getGameRenderState()
+			);
 			for (String word : wronglySpelledWords) {
 				ArrayList<String> suggestions = wordSuggestions.get(word);
 
@@ -69,9 +73,11 @@ public class SuggestionUtil {
 							if (currentlyDisplayedText.contains(wordUntilTypo)) {
 								int width = font.width(wordUntilTypo);
 
-								boolean hoveredFlag = hoverBoolean((int) mouseX, (int) mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
+								boolean hoveredFlag = hoverBoolean((int) mouseX, (int) mouseY,
+										2 + width, chat.height - 12, font.width(word), font.lineHeight);
 								if (hoveredFlag) {
-									SuggestionRendering.drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+									SuggestionRendering.drawInfoTooltip(guiGraphics, font, suggestions,
+											width - 6, chat.height - (6 + (suggestions.size() * 12)));
 
 									addToDictionary(editBox, word);
 									keepSuggestion(editBox, width - 6, chat.height - 12, word, suggestions);
@@ -83,9 +89,11 @@ public class SuggestionUtil {
 									if (!firstWord.isEmpty() && word.contains(firstWord)) {
 										int width = font.width(firstWord);
 
-										boolean hoveredFlag = hoverBoolean((int) mouseX, (int) mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
+										boolean hoveredFlag = hoverBoolean((int) mouseX, (int) mouseY,
+												2 + width, chat.height - 12, font.width(word), font.lineHeight);
 										if (hoveredFlag) {
-											SuggestionRendering.drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+											SuggestionRendering.drawInfoTooltip(guiGraphics, font, suggestions,
+													width - 6, chat.height - (6 + (suggestions.size() * 12)));
 
 											addToDictionary(editBox, word);
 											keepSuggestion(editBox, width - 6, chat.height - 20, word, suggestions);
