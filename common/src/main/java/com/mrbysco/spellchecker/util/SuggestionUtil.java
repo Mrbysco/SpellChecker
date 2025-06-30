@@ -22,6 +22,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Utility class for handling suggestions in the chat box
+ */
 public class SuggestionUtil {
 	public static final HashMap<String, ArrayList<String>> wordSuggestions = new LinkedHashMap<>();
 	public static final List<LocationData> wordPosition = new LinkedList<>();
@@ -35,6 +38,7 @@ public class SuggestionUtil {
 	 * @param keyCode   The key code of the key that was pressed
 	 * @param scanCode  The scan code of the key that was pressed
 	 * @param modifiers The modifiers of the key that was pressed
+	 * @param box       The edit box where thekey was pressed
 	 */
 	public static void onKeyPressed(int keyCode, int scanCode, int modifiers, EditBox box) {
 		if (isKeyDown(GLFW.GLFW_KEY_SPACE) || isKeyDown(GLFW.GLFW_KEY_BACKSPACE) || isKeyDown(GLFW.GLFW_KEY_UP) || isKeyDown(GLFW.GLFW_KEY_DOWN) || isKeyDown(GLFW.GLFW_KEY_LEFT) || isKeyDown(GLFW.GLFW_KEY_RIGHT)) {
@@ -46,14 +50,21 @@ public class SuggestionUtil {
 		}
 	}
 
-
+	/**
+	 * Called when the mouse is clicked in the chat box
+	 *
+	 * @param mouseX The x position of the mouse
+	 * @param mouseY The y position of the mouse
+	 * @param button The button that was clicked
+	 * @param chat   The chat screen
+	 */
 	public static void onMouseClicked(double mouseX, double mouseY, int button, ChatScreen chat) {
 		final Minecraft mc = Minecraft.getInstance();
 		final Font font = mc.font;
 		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null &&
 				!wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
 			final GuiGraphics guiGraphics = new GuiGraphics(mc,
-					((GameRendererAccessor)(mc.gameRenderer)).spellchecker_getGameRenderState()
+					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState()
 			);
 			for (String word : wronglySpelledWords) {
 				ArrayList<String> suggestions = wordSuggestions.get(word);
@@ -108,10 +119,27 @@ public class SuggestionUtil {
 		}
 	}
 
-	protected static boolean hoverBoolean(int mouseX, int mouseY, int x, int y, int widthIn, int heigthIn) {
-		return mouseX >= x && mouseY >= y && mouseX < x + widthIn && mouseY < y + heigthIn;
+	/**
+	 * Checks if the mouse is hovering over a specific area
+	 *
+	 * @param mouseX The x position of the mouse
+	 * @param mouseY The y position of the mouse
+	 * @param x      The x position of the area
+	 * @param y      The y position of the area
+	 * @param width  The width of the area
+	 * @param height The height of the area
+	 * @return True if the mouse is hovering over the area, false otherwise
+	 */
+	protected static boolean hoverBoolean(int mouseX, int mouseY, int x, int y, int width, int height) {
+		return mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 	}
 
+	/**
+	 * Checks if a key is currently pressed down
+	 *
+	 * @param keyCode The key code to check
+	 * @return True if the key is pressed down, false otherwise
+	 */
 	private static boolean isKeyDown(int keyCode) {
 		return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keyCode);
 	}

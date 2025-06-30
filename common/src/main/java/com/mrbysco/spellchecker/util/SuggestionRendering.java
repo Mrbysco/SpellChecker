@@ -16,6 +16,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SuggestionRendering {
+	/**
+	 * Renders the suggestions in the chat box
+	 * @param guiGraphics The GuiGraphics instance used for rendering
+	 * @param mouseX The x position of the mouse
+	 * @param mouseY The y position of the mouse
+	 * @param partialTick The partial tick time
+	 * @param chat The chat screen where the suggestions are rendered
+	 */
 	public static void renderSuggestions(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, ChatScreen chat) {
 		final Font font = Minecraft.getInstance().font;
 		if (!SuggestionUtil.keptSuggestions.isEmpty()) {
@@ -114,6 +122,14 @@ public class SuggestionRendering {
 		}
 	}
 
+	/**
+	 * Draws a tooltip for the given word suggestions at the specified position.
+	 * @param guiGraphics The GuiGraphics instance used for rendering
+	 * @param font The font used for rendering the text
+	 * @param textLines The list of text lines to display in the tooltip
+	 * @param x The x position where the tooltip should be drawn
+	 * @param y The y position where the tooltip should be drawn
+	 */
 	public static void drawInfoTooltip(GuiGraphics guiGraphics, Font font, List<String> textLines, int x, int y) {
 		guiGraphics.setTooltipForNextFrame(font, textLines.stream().map(text ->
 				Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
