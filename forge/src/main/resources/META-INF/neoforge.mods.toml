@@ -17,13 +17,13 @@ logoFile="logo.png"
 [[dependencies.spellchecker]]
 modId="minecraft"
 type="REQUIRED"
-versionRange="[1.21.6,1.22)"
+versionRange="[1.21.7,1.22)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.spellchecker]]
 modId="neoforge"
 type="REQUIRED"
-versionRange="[21.6.0-beta,)"
+versionRange="[21.7.0-beta,)"
 ordering="NONE"
 side="BOTH"
 [[mixins]]
