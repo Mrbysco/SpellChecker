@@ -20,7 +20,6 @@ public class SpellCheckerConfig {
 					.push("language");
 
 			language_to_check = builder
-					.translation("configgui.spellchecker.language_check.language_to_check")
 					.comment("LanguageEnum locale the mod uses to check your chat messages. [default: EN_US]")
 					.defineEnum("language_to_check", LanguageEnum.EN_US);
 
@@ -29,7 +28,6 @@ public class SpellCheckerConfig {
 					.push("checking");
 
 			checking_threshold = builder
-					.translation("configgui.spellchecker.checking.checking_threshold")
 					.comment("The threshold the mod uses to check how close a word needs to be to the wrongly spelled word. [default: 0]")
 					.defineInRange("checking_threshold", 0, 0, Integer.MAX_VALUE);
 
@@ -38,12 +36,10 @@ public class SpellCheckerConfig {
 					.push("general");
 
 			max_suggestions = builder
-					.translation("configgui.spellchecker.general.max_suggestions")
 					.comment("The maximum number of suggestions it will show you. [default: 4]")
 					.defineInRange("max_suggestions", 4, 1, 20);
 
 			show_suggestions_live = builder
-					.translation("configgui.spellchecker.general.show_suggestions_live")
 					.comment("Show suggestions live while typing. [default: false]")
 					.define("show_suggestions_live", false);
 

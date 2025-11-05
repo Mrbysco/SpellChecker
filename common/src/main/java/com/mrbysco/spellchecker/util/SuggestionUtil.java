@@ -13,6 +13,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
@@ -35,12 +37,10 @@ public class SuggestionUtil {
 	/**
 	 * Called when a key is pressed in the chat box
 	 *
-	 * @param keyCode   The key code of the key that was pressed
-	 * @param scanCode  The scan code of the key that was pressed
-	 * @param modifiers The modifiers of the key that was pressed
-	 * @param box       The edit box where thekey was pressed
+	 * @param event The key event
+	 * @param box   The edit box where thekey was pressed
 	 */
-	public static void onKeyPressed(int keyCode, int scanCode, int modifiers, EditBox box) {
+	public static void onKeyPressed(KeyEvent event, EditBox box) {
 		if (isKeyDown(GLFW.GLFW_KEY_SPACE) || isKeyDown(GLFW.GLFW_KEY_BACKSPACE) || isKeyDown(GLFW.GLFW_KEY_UP) || isKeyDown(GLFW.GLFW_KEY_DOWN) || isKeyDown(GLFW.GLFW_KEY_LEFT) || isKeyDown(GLFW.GLFW_KEY_RIGHT)) {
 			refreshSuggestions(box);
 		}
@@ -53,14 +53,15 @@ public class SuggestionUtil {
 	/**
 	 * Called when the mouse is clicked in the chat box
 	 *
-	 * @param mouseX The x position of the mouse
-	 * @param mouseY The y position of the mouse
-	 * @param button The button that was clicked
-	 * @param chat   The chat screen
+	 * @param event         The mouse button event
+	 * @param isDoubleClick If the mouse was double-clicked
+	 * @param chat          The chat screen
 	 */
-	public static void onMouseClicked(double mouseX, double mouseY, int button, ChatScreen chat) {
+	public static void onMouseClicked(MouseButtonEvent event, boolean isDoubleClick, ChatScreen chat) {
 		final Minecraft mc = Minecraft.getInstance();
 		final Font font = mc.font;
+		final double mouseX = event.x();
+		final double mouseY = event.y();
 		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null &&
 				!wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
 			final GuiGraphics guiGraphics = new GuiGraphics(mc,
@@ -141,7 +142,7 @@ public class SuggestionUtil {
 	 * @return True if the key is pressed down, false otherwise
 	 */
 	private static boolean isKeyDown(int keyCode) {
-		return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keyCode);
+		return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), keyCode);
 	}
 
 	/**

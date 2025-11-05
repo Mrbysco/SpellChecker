@@ -6,6 +6,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 @Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
 public class SpellCheckerNeoForge {
@@ -15,5 +17,9 @@ public class SpellCheckerNeoForge {
 		eventBus.register(SpellCheckerConfig.class);
 
 		CommonClass.init();
+
+		if (dist.isClient()) {
+			container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+		}
 	}
 }
