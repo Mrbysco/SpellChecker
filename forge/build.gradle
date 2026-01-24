@@ -113,7 +113,7 @@ if (System.getenv().CURSEFORGE_KEY) {
         mainFile.addGameVersion "NeoForge"
         mainFile.addGameVersion "${minecraft_version}"
         mainFile.addGameVersion "Java 21"
-        mainFile.addGameVersion('Server', 'Client')
+        mainFile.addGameVersion('Client')
 
         mainFile.changelog = file("$project.rootDir/changelog.md")
         mainFile.changelogType = 'markdown'
@@ -121,6 +121,7 @@ if (System.getenv().CURSEFORGE_KEY) {
 }
 
 if (System.getenv().MODRINTH_KEY) {
+    String fileContents = file("$project.rootDir/changelog.md").text
     modrinth {
         token = System.getenv().MODRINTH_KEY
         projectId = project.modrinth_id
@@ -128,7 +129,7 @@ if (System.getenv().MODRINTH_KEY) {
         versionName = "${mod_name} ${minecraft_version}"
         versionNumber = project.version
         uploadFile = jar
-        changelog = file("$project.rootDir/changelog.md").text
+        changelog = fileContents
         gameVersions = ["${minecraft_version}"]
         loaders = ["neoforge"]
     }
