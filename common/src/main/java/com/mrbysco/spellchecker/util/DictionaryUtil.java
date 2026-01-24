@@ -4,7 +4,7 @@ import com.mrbysco.spellchecker.CommonClass;
 import com.mrbysco.spellchecker.Constants;
 import com.swabunga.spell.engine.SpellDictionaryHashMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -66,14 +66,14 @@ public class DictionaryUtil {
 	public static InputStream getDictionaryWords(String locale_name) throws IOException {
 		if (!locale_name.isEmpty()) {
 			try {
-				return Minecraft.getInstance().getResourceManager().getResource(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "dictionaries/" + locale_name + "/dictionary.txt")).get().open();
+				return Minecraft.getInstance().getResourceManager().getResource(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "dictionaries/" + locale_name + "/dictionary.txt")).get().open();
 			} catch (IOException e) {
 				Constants.LOGGER.error("Invalid locale {}", locale_name);
 				Constants.LOGGER.trace("Exception: ", e);
 				return null;
 			}
 		} else {
-			return Minecraft.getInstance().getResourceManager().getResource(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "dictionaries/en_us/dictionary.txt")).get().open();
+			return Minecraft.getInstance().getResourceManager().getResource(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "dictionaries/en_us/dictionary.txt")).get().open();
 		}
 	}
 

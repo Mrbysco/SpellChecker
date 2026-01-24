@@ -65,7 +65,7 @@ public class SuggestionUtil {
 		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null &&
 				!wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
 			final GuiGraphics guiGraphics = new GuiGraphics(mc,
-					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState()
+					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState(), (int)mouseX, (int)mouseY
 			);
 			for (String word : wronglySpelledWords) {
 				ArrayList<String> suggestions = wordSuggestions.get(word);
