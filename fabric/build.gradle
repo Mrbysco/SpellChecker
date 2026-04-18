@@ -31,10 +31,7 @@ dependencies {
         exclude(group: "eu.pb4")
     }
 
-    api("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_api_version}")
-    implementation("com.terraformersmc:modmenu:${mod_menu_version}"){
-        exclude(group: "eu.pb4")
-    }
+    include api('com.swabunga:jazzy:1.0.0')
 }
 
 loom {
