@@ -2,15 +2,15 @@ package com.mrbysco.spellchecker.util;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mrbysco.spellchecker.CommonClass;
+import com.mrbysco.spellchecker.config.SpellCheckerConfig;
 import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
 import com.mrbysco.spellchecker.mixin.GameRendererAccessor;
-import com.mrbysco.spellchecker.platform.Services;
 import com.swabunga.spell.engine.SpellDictionary;
 import com.swabunga.spell.engine.Word;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.input.KeyEvent;
@@ -64,8 +64,8 @@ public class SuggestionUtil {
 		final double mouseY = event.y();
 		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null &&
 				!wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
-			final GuiGraphics guiGraphics = new GuiGraphics(mc,
-					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState(), (int)mouseX, (int)mouseY
+			final GuiGraphicsExtractor guiGraphics = new GuiGraphicsExtractor(mc,
+					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState().guiRenderState, (int)mouseX, (int)mouseY
 			);
 			for (String word : wronglySpelledWords) {
 				ArrayList<String> suggestions = wordSuggestions.get(word);
@@ -242,8 +242,8 @@ public class SuggestionUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static ArrayList<String> getSuggestions(String misspelledWord) {
-		int threshold = Services.PLATFORM.getCheckingThreshold();
-		int maxSuggestions = Services.PLATFORM.getMaxSuggestions();
+		int threshold = SpellCheckerConfig.CLIENT.checking_threshold.get();
+		int maxSuggestions = SpellCheckerConfig.CLIENT.max_suggestions.get();
 
 		List<Word> words = new ArrayList<>();
 		if (!misspelledWord.isEmpty()) {

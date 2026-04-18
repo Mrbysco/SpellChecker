@@ -10,32 +10,4 @@ public interface IPlatformHelper {
 	 * @return the path to the mods directory
 	 */
 	Path getConfigDir();
-
-	/**
-	 * Gets the configured language to be used for spell checking
-	 *
-	 * @return get configured language
-	 */
-	String getConfiguredLocale();
-
-	/**
-	 * Gets the configured checking threshold
-	 *
-	 * @return get configured checking threshold
-	 */
-	int getCheckingThreshold();
-
-	/**
-	 * Gets the configured max suggestions
-	 *
-	 * @return get configured max suggestions
-	 */
-	int getMaxSuggestions();
-
-	/**
-	 * Show spell suggestions live
-	 *
-	 * @return get configured value signifying whether to show suggestions live
-	 */
-	boolean showSuggestionsLive();
 }

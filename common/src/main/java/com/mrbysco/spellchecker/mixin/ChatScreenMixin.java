@@ -1,10 +1,10 @@
 package com.mrbysco.spellchecker.mixin;
 
-import com.mrbysco.spellchecker.platform.Services;
+import com.mrbysco.spellchecker.config.SpellCheckerConfig;
 import com.mrbysco.spellchecker.util.DictionaryUtil;
 import com.mrbysco.spellchecker.util.SuggestionRendering;
 import com.mrbysco.spellchecker.util.SuggestionUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.input.KeyEvent;
@@ -24,7 +24,7 @@ public class ChatScreenMixin {
 
 	@Inject(at = @At("TAIL"), method = "init()V")
 	private void spellchecker_init(CallbackInfo info) {
-		SuggestionUtil.currentLocale = Services.PLATFORM.getConfiguredLocale();
+		SuggestionUtil.currentLocale = SpellCheckerConfig.CLIENT.language_to_check.get().getLocale();
 		DictionaryUtil.addPersonalToLanguageMap();
 		SuggestionUtil.refreshSuggestions(input);
 	}
@@ -45,9 +45,9 @@ public class ChatScreenMixin {
 		SuggestionUtil.onMouseClicked(event, isDoubleClick, screen);
 	}
 
-	@Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V")
-	public void spellchecker_render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo info) {
+	@Inject(at = @At("TAIL"), method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V")
+	public void spellchecker_render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo info) {
 		ChatScreen screen = (ChatScreen) (Object) this;
-		SuggestionRendering.renderSuggestions(guiGraphics, mouseX, mouseY, partialTick, screen);
+		SuggestionRendering.extractSuggestions(guiGraphics, mouseX, mouseY, partialTick, screen);
 	}
 }

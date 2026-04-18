@@ -1,11 +1,11 @@
 package com.mrbysco.spellchecker.util;
 
+import com.mrbysco.spellchecker.config.SpellCheckerConfig;
 import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
-import com.mrbysco.spellchecker.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.network.chat.Component;
@@ -18,13 +18,14 @@ import java.util.stream.Collectors;
 public class SuggestionRendering {
 	/**
 	 * Renders the suggestions in the chat box
-	 * @param guiGraphics The GuiGraphics instance used for rendering
-	 * @param mouseX The x position of the mouse
-	 * @param mouseY The y position of the mouse
+	 *
+	 * @param graphics    The GuiGraphicsExtractor instance used for rendering
+	 * @param mouseX      The x position of the mouse
+	 * @param mouseY      The y position of the mouse
 	 * @param partialTick The partial tick time
-	 * @param chat The chat screen where the suggestions are rendered
+	 * @param chat        The chat screen where the suggestions are rendered
 	 */
-	public static void renderSuggestions(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, ChatScreen chat) {
+	public static void extractSuggestions(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick, ChatScreen chat) {
 		final Font font = Minecraft.getInstance().font;
 		if (!SuggestionUtil.keptSuggestions.isEmpty()) {
 			for (SuggestionInfo info : SuggestionUtil.keptSuggestions) {
@@ -32,7 +33,7 @@ public class SuggestionRendering {
 				int posY = info.posY();
 				List<String> suggestions = info.suggestions();
 
-				drawInfoTooltip(guiGraphics, font, suggestions, posX, posY);
+				drawInfoTooltip(graphics, font, suggestions, posX, posY);
 			}
 		}
 
@@ -40,7 +41,7 @@ public class SuggestionRendering {
 				!SuggestionUtil.wordSuggestions.isEmpty() &&
 				!SuggestionUtil.wordPosition.isEmpty()
 		) {
-			final boolean showSuggestionsLive = Services.PLATFORM.showSuggestionsLive();
+			final boolean showSuggestionsLive = SpellCheckerConfig.CLIENT.show_suggestions_live.get();
 			for (int i = 0; i < SuggestionUtil.wronglySpelledWords.size(); i++) {
 				boolean isLastWord = i == SuggestionUtil.wronglySpelledWords.size() - 1;
 				String word = SuggestionUtil.wronglySpelledWords.get(i);
@@ -78,10 +79,10 @@ public class SuggestionRendering {
 									wrongSquigly = new StringBuilder("~");
 								}
 
-								guiGraphics.drawString(font, wrongSquigly.toString(), width + 4, chat.height - 4, ARGB.opaque(16733525), false);
+								graphics.text(font, wrongSquigly.toString(), width + 4, chat.height - 4, ARGB.opaque(16733525), false);
 								boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
 								if (hoveredFlag || (showSuggestionsLive && isLastWord)) {
-									drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+									drawInfoTooltip(graphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
 								}
 							} else {
 								String[] Words = currentlyDisplayedText.split(" ");
@@ -107,10 +108,10 @@ public class SuggestionRendering {
 											wrongSquigly = new StringBuilder("~");
 										}
 
-										guiGraphics.drawString(font, wrongSquigly.toString(), width + 2, chat.height - 4, ARGB.opaque(16733525), false);
+										graphics.text(font, wrongSquigly.toString(), width + 2, chat.height - 4, ARGB.opaque(16733525), false);
 										boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
 										if (hoveredFlag) {
-											drawInfoTooltip(guiGraphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+											drawInfoTooltip(graphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
 										}
 									}
 								}
@@ -124,14 +125,15 @@ public class SuggestionRendering {
 
 	/**
 	 * Draws a tooltip for the given word suggestions at the specified position.
-	 * @param guiGraphics The GuiGraphics instance used for rendering
-	 * @param font The font used for rendering the text
+	 *
+	 * @param graphics  The GuiGraphicsExtractor instance used for rendering
+	 * @param font      The font used for rendering the text
 	 * @param textLines The list of text lines to display in the tooltip
-	 * @param x The x position where the tooltip should be drawn
-	 * @param y The y position where the tooltip should be drawn
+	 * @param x         The x position where the tooltip should be drawn
+	 * @param y         The y position where the tooltip should be drawn
 	 */
-	public static void drawInfoTooltip(GuiGraphics guiGraphics, Font font, List<String> textLines, int x, int y) {
-		guiGraphics.setTooltipForNextFrame(font, textLines.stream().map(text ->
+	public static void drawInfoTooltip(GuiGraphicsExtractor graphics, Font font, List<String> textLines, int x, int y) {
+		graphics.setTooltipForNextFrame(font, textLines.stream().map(text ->
 				Component.literal(text).getVisualOrderText()).collect(Collectors.toList()), x, y);
 	}
 }

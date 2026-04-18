@@ -1,5 +1,6 @@
 package com.mrbysco.spellchecker;
 
+import com.mrbysco.spellchecker.config.SpellCheckerConfig;
 import com.mrbysco.spellchecker.platform.Services;
 import com.mrbysco.spellchecker.util.DictionaryUtil;
 import com.swabunga.spell.engine.SpellDictionary;
@@ -23,7 +24,7 @@ public class CommonClass {
 		if (dict != null) {
 			return dict;
 		}
-		DictionaryUtil.buildLanguageMap(Services.PLATFORM.getConfiguredLocale());
+		DictionaryUtil.buildLanguageMap(SpellCheckerConfig.CLIENT.language_to_check.get().getLocale());
 		return dict;
 	}
 

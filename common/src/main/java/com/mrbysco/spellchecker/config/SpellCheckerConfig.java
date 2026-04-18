@@ -1,10 +1,7 @@
 package com.mrbysco.spellchecker.config;
 
-import com.mrbysco.spellchecker.Constants;
 import com.mrbysco.spellchecker.language.LanguageEnum;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class SpellCheckerConfig {
@@ -54,15 +51,5 @@ public class SpellCheckerConfig {
 		final Pair<Client, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Client::new);
 		clientSpec = specPair.getRight();
 		CLIENT = specPair.getLeft();
-	}
-
-	@SubscribeEvent
-	public static void onLoad(final ModConfigEvent.Loading configEvent) {
-		Constants.LOGGER.debug("Loaded SpellChecker's config file {}", configEvent.getConfig().getFileName());
-	}
-
-	@SubscribeEvent
-	public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-		Constants.LOGGER.warn("SpellChecker's config just got changed on the file system!");
 	}
 }
