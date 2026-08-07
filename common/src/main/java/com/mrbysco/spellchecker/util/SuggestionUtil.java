@@ -11,6 +11,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.CommandBlockEditScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import org.lwjgl.glfw.GLFW;
@@ -189,6 +192,8 @@ public class SuggestionUtil {
 	 * @param editBox The edit box
 	 */
 	public static void refreshSuggestions(EditBox editBox) {
+		if (isCommandLikeInput(editBox)) return;
+
 		DictionaryUtil.addPersonalToLanguageMap();
 
 		wordSuggestions.clear();
@@ -280,5 +285,23 @@ public class SuggestionUtil {
 		}
 
 		return strippedWord;
+	}
+
+	/**
+	 * Checks if the input in the given EditBox is command-like
+	 *
+	 * @param editBox The EditBox to check
+	 * @return True if the input is command-like, false otherwise
+	 */
+	public static boolean isCommandLikeInput(EditBox editBox) {
+		Minecraft mc = Minecraft.getInstance();
+		Screen screen = mc.screen;
+
+		if (screen instanceof CommandBlockEditScreen) {
+			return true;
+		}
+
+		String text = editBox.getValue();
+		return screen instanceof ChatScreen && text.startsWith("/");
 	}
 }

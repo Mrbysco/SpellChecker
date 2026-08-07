@@ -61,7 +61,7 @@ public class SuggestionRendering {
 								int width = font.width(wordUntilTypo);
 
 								StringBuilder wrongSquigly = new StringBuilder();
-								wrongSquigly.append("~".repeat(word.length()));
+								wrongSquigly.repeat("~", word.length());
 
 								if (font.width(word) <= font.width(wrongSquigly.toString())) {
 									int left = font.width(wrongSquigly.toString()) - font.width(word);
@@ -90,7 +90,7 @@ public class SuggestionRendering {
 										int width = font.width(firstWord);
 
 										StringBuilder wrongSquigly = new StringBuilder();
-										wrongSquigly.append("~".repeat(firstWord.length()));
+										wrongSquigly.repeat("~", firstWord.length());
 
 										if (font.width(word) <= font.width(wrongSquigly.toString())) {
 											int left = font.width(wrongSquigly.toString()) - font.width(word);

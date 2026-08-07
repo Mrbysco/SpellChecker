@@ -4,7 +4,6 @@
   "package": "com.mrbysco.spellchecker.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "ChatScreenAccessor",
     "EditBoxAccessor",
     "EditBoxMixin",
     "GameRendererAccessor"
