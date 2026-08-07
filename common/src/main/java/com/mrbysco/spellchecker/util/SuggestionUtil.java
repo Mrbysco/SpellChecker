@@ -3,7 +3,6 @@ package com.mrbysco.spellchecker.util;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mrbysco.spellchecker.CommonClass;
 import com.mrbysco.spellchecker.config.SpellCheckerConfig;
-import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
 import com.mrbysco.spellchecker.mixin.GameRendererAccessor;
 import com.swabunga.spell.engine.SpellDictionary;
@@ -12,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import org.lwjgl.glfw.GLFW;
@@ -38,7 +36,7 @@ public class SuggestionUtil {
 	 * Called when a key is pressed in the chat box
 	 *
 	 * @param event The key event
-	 * @param box   The edit box where thekey was pressed
+	 * @param box   The edit box where the key was pressed
 	 */
 	public static void onKeyPressed(KeyEvent event, EditBox box) {
 		if (isKeyDown(GLFW.GLFW_KEY_SPACE) || isKeyDown(GLFW.GLFW_KEY_BACKSPACE) || isKeyDown(GLFW.GLFW_KEY_UP) || isKeyDown(GLFW.GLFW_KEY_DOWN) || isKeyDown(GLFW.GLFW_KEY_LEFT) || isKeyDown(GLFW.GLFW_KEY_RIGHT)) {
@@ -55,9 +53,9 @@ public class SuggestionUtil {
 	 *
 	 * @param event         The mouse button event
 	 * @param isDoubleClick If the mouse was double-clicked
-	 * @param chat          The chat screen
+	 * @param editBox       The editbox
 	 */
-	public static void onMouseClicked(MouseButtonEvent event, boolean isDoubleClick, ChatScreen chat) {
+	public static void onMouseClicked(MouseButtonEvent event, boolean isDoubleClick, EditBox editBox) {
 		final Minecraft mc = Minecraft.getInstance();
 		final Font font = mc.font;
 		final double mouseX = event.x();
@@ -65,12 +63,12 @@ public class SuggestionUtil {
 		if (wronglySpelledWords != null && !wronglySpelledWords.isEmpty() && wordSuggestions != null &&
 				!wordSuggestions.isEmpty() && wordPosition != null && !wordPosition.isEmpty()) {
 			final GuiGraphicsExtractor guiGraphics = new GuiGraphicsExtractor(mc,
-					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState().guiRenderState, (int)mouseX, (int)mouseY
+					((GameRendererAccessor) (mc.gameRenderer)).spellchecker_getGameRenderState().guiRenderState, (int) mouseX, (int) mouseY
 			);
+			final int xPos = editBox.getX();
 			for (String word : wronglySpelledWords) {
 				ArrayList<String> suggestions = wordSuggestions.get(word);
 
-				EditBox editBox = ((ChatScreenAccessor) chat).spellchecker_getEditbox();
 				int lineScrollOffset = ((EditBoxAccessor) editBox).spellchecker_getDisplayPos();
 				String chatText = editBox.getValue();
 
@@ -86,13 +84,13 @@ public class SuggestionUtil {
 								int width = font.width(wordUntilTypo);
 
 								boolean hoveredFlag = hoverBoolean((int) mouseX, (int) mouseY,
-										2 + width, chat.height - 12, font.width(word), font.lineHeight);
+										xPos + 2 + width, editBox.getY() - 12, font.width(word), font.lineHeight);
 								if (hoveredFlag) {
 									SuggestionRendering.drawInfoTooltip(guiGraphics, font, suggestions,
-											width - 6, chat.height - (6 + (suggestions.size() * 12)));
+											xPos + width - 6, editBox.getY() - (6 + (suggestions.size() * 12)));
 
 									addToDictionary(editBox, word);
-									keepSuggestion(editBox, width - 6, chat.height - 12, word, suggestions);
+									keepSuggestion(editBox, xPos + width - 6, editBox.getY() - 12, word, suggestions);
 								}
 							} else {
 								String[] Words = currentlyDisplayedText.split(" ");
@@ -102,13 +100,13 @@ public class SuggestionUtil {
 										int width = font.width(firstWord);
 
 										boolean hoveredFlag = hoverBoolean((int) mouseX, (int) mouseY,
-												2 + width, chat.height - 12, font.width(word), font.lineHeight);
+												xPos + 2 + width, editBox.getY() - 12, font.width(word), font.lineHeight);
 										if (hoveredFlag) {
 											SuggestionRendering.drawInfoTooltip(guiGraphics, font, suggestions,
-													width - 6, chat.height - (6 + (suggestions.size() * 12)));
+													xPos + width - 6, editBox.getY() - (6 + (suggestions.size() * 12)));
 
 											addToDictionary(editBox, word);
-											keepSuggestion(editBox, width - 6, chat.height - 20, word, suggestions);
+											keepSuggestion(editBox, xPos + width - 6, editBox.getY() - 20, word, suggestions);
 										}
 									}
 								}

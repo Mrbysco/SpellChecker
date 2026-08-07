@@ -1,13 +1,11 @@
 package com.mrbysco.spellchecker.util;
 
 import com.mrbysco.spellchecker.config.SpellCheckerConfig;
-import com.mrbysco.spellchecker.mixin.ChatScreenAccessor;
 import com.mrbysco.spellchecker.mixin.EditBoxAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 
@@ -23,9 +21,9 @@ public class SuggestionRendering {
 	 * @param mouseX      The x position of the mouse
 	 * @param mouseY      The y position of the mouse
 	 * @param partialTick The partial tick time
-	 * @param chat        The chat screen where the suggestions are rendered
+	 * @param editBox     The edit box where the suggestions are rendered
 	 */
-	public static void extractSuggestions(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick, ChatScreen chat) {
+	public static void extractSuggestions(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick, EditBox editBox) {
 		final Font font = Minecraft.getInstance().font;
 		if (!SuggestionUtil.keptSuggestions.isEmpty()) {
 			for (SuggestionInfo info : SuggestionUtil.keptSuggestions) {
@@ -42,12 +40,12 @@ public class SuggestionRendering {
 				!SuggestionUtil.wordPosition.isEmpty()
 		) {
 			final boolean showSuggestionsLive = SpellCheckerConfig.CLIENT.show_suggestions_live.get();
+			final int xPos = editBox.getX();
 			for (int i = 0; i < SuggestionUtil.wronglySpelledWords.size(); i++) {
 				boolean isLastWord = i == SuggestionUtil.wronglySpelledWords.size() - 1;
 				String word = SuggestionUtil.wronglySpelledWords.get(i);
 				ArrayList<String> suggestions = SuggestionUtil.wordSuggestions.get(word);
 
-				EditBox editBox = ((ChatScreenAccessor) chat).spellchecker_getEditbox();
 				int lineScrollOffset = ((EditBoxAccessor) editBox).spellchecker_getDisplayPos();
 				String chatText = editBox.getValue();
 
@@ -79,10 +77,10 @@ public class SuggestionRendering {
 									wrongSquigly = new StringBuilder("~");
 								}
 
-								graphics.text(font, wrongSquigly.toString(), width + 4, chat.height - 4, ARGB.opaque(16733525), false);
-								boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
+								graphics.text(font, wrongSquigly.toString(), xPos + width + 2, editBox.getY() - 4, ARGB.opaque(16733525), false);
+								boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, xPos + 2 + width, editBox.getY(), font.width(word), font.lineHeight);
 								if (hoveredFlag || (showSuggestionsLive && isLastWord)) {
-									drawInfoTooltip(graphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+									drawInfoTooltip(graphics, font, suggestions, xPos + width - 6, editBox.getY() - (-10 + (suggestions.size() * 12)));
 								}
 							} else {
 								String[] Words = currentlyDisplayedText.split(" ");
@@ -108,10 +106,10 @@ public class SuggestionRendering {
 											wrongSquigly = new StringBuilder("~");
 										}
 
-										graphics.text(font, wrongSquigly.toString(), width + 2, chat.height - 4, ARGB.opaque(16733525), false);
-										boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, chat.height - 12, font.width(word), font.lineHeight);
+										graphics.text(font, wrongSquigly.toString(), xPos + width + 2, editBox.getY() - 4, ARGB.opaque(16733525), false);
+										boolean hoveredFlag = SuggestionUtil.hoverBoolean(mouseX, mouseY, 2 + width, editBox.getY() - 12, font.width(word), font.lineHeight);
 										if (hoveredFlag) {
-											drawInfoTooltip(graphics, font, suggestions, width - 6, chat.height - (6 + (suggestions.size() * 12)));
+											drawInfoTooltip(graphics, font, suggestions, xPos + width - 6, editBox.getY() - (6 + (suggestions.size() * 12)));
 										}
 									}
 								}
