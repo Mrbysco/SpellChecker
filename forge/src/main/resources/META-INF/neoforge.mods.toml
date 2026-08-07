@@ -12,18 +12,18 @@ authors="Mrbysco"
 description='''
 Need your spelling checked?
 '''
-logoFile="logo.png"
+iconFile="logo.png"
 
 [[dependencies.spellchecker]]
 modId="minecraft"
 type="REQUIRED"
-versionRange="[26.1.1,)"
+versionRange="[26.2,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.spellchecker]]
 modId="neoforge"
 type="REQUIRED"
-versionRange="[26.1.1.0-beta,)"
+versionRange="[26.2.0.0-beta,)"
 ordering="NONE"
 side="BOTH"
 [[mixins]]

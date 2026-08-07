@@ -44,8 +44,8 @@ public class EditBoxMixin {
 	}
 
 	@Inject(at = @At("TAIL"), method = "extractWidgetRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V")
-	public void spellchecker$extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo info) {
+	public void spellchecker$extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo info) {
 		EditBox editBox = (EditBox) (Object) this;
-		SuggestionRendering.extractSuggestions(guiGraphics, mouseX, mouseY, partialTick, editBox);
+		SuggestionRendering.extractSuggestions(graphics, mouseX, mouseY, a, editBox);
 	}
 }

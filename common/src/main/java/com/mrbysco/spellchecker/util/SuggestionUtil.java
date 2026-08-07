@@ -295,7 +295,7 @@ public class SuggestionUtil {
 	 */
 	public static boolean isCommandLikeInput(EditBox editBox) {
 		Minecraft mc = Minecraft.getInstance();
-		Screen screen = mc.screen;
+		Screen screen = mc.gui.screen();
 
 		if (screen instanceof CommandBlockEditScreen) {
 			return true;
