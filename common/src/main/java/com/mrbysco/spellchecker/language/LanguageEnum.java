@@ -10,7 +10,8 @@ public enum LanguageEnum {
 	FR_FR("fr_fr"),
 	IT_IT("it_it"),
 	NL_NL("nl_nl"),
-	NO_NO("no_no");
+	NO_NO("no_no"),
+	SV_SE("sv_se");
 
 	private final String locale;
 
